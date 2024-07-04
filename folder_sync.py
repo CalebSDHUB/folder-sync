@@ -2,6 +2,7 @@ import os
 import time
 import shutil
 import logging
+import argparse
 from pathlib import Path
 
 class FolderSync:
@@ -140,17 +141,15 @@ class SyncManager:
         while True:
             sync.synch()
             time.sleep(self.interval)
-        
-            
+             
 if __name__ == "__main__":
-    # Source folder
-    src_folder = Path("src")
-    # Destination folder
-    dst_folder = Path("dst")
-    # Log file name
-    log_file = Path("sync.log")
-    # Interval in seconds between sync
-    interval = 5
-
-    sync_manager = SyncManager(src_folder, dst_folder, interval, log_file)
+    
+    parser = argparse.ArgumentParser(description="Synchronize two folders.")
+    parser.add_argument("--src", type=Path, help="The source folder to sync.")
+    parser.add_argument("--dst", type=Path, help="The destination folder to sync.")
+    parser.add_argument("--interval", type=int, help="The period interval in seconds for the synchronization process.")
+    parser.add_argument("--logfile", type=Path, help="The path to the log file.")
+    args = parser.parse_args()
+    
+    sync_manager = SyncManager(args.src, args.dst, args.interval, args.logfile)
     sync_manager.run()
