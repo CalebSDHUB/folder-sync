@@ -1,3 +1,3 @@
 ### Instructions
 
-- Run `bash run.sh` to run demo.
+- Run `bash demo.sh` to run demo.
